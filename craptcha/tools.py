@@ -4,6 +4,7 @@ Generic image manipulation tools.
 import functools
 import Image
 import ImageOps
+import itertools
 
 
 deborder = functools.partial(ImageOps.crop, border=1)
@@ -30,3 +31,31 @@ def bilevel(image):
 def simplify(image, colors=4):
     result = image.convert("P", palette=Image.ADAPTIVE, colors=colors)
     return result.convert("RGB")
+
+
+def getColumns(image):
+    pixels = list(image.getdata())
+    width, height = image.size
+    BOTTOM_LEFT = width * (height - 1)
+    return (pixels[i:BOTTOM_LEFT + i:width] for i in xrange(width))
+
+
+def getRows(image):
+    return itertools.izip(*[iter(image.getdata())] * image.size[0])
+
+
+def isWhite(pixels):
+    return set(pixels) == set([(255, 255, 255)])
+
+
+def autocrop(image, backgroundColor):
+    background = Image.new(image.mode, im.size, bgcolor)
+    boundingBox = ImageChops.difference(image, background).getbbox()
+    return image.crop(boundingBox)
+
+
+def showPixel(image, pixel, color=(255, 0, 0)):
+    if image.mode != "RGB":
+        image = image.convert("RGB")
+    image.putpixel(pixel, color)
+    image.show()

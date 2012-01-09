@@ -4,19 +4,17 @@ Tools for segmenting preprocessed captchas into separate glyphs.
 import Image
 import itertools
 
+from craptcha import tools
+
 
 def segment(image):
-    pixels = list(image.getdata())
-
-    width, height = image.size
-    BOTTOM_LEFT = width * (height - 1)
-    columns = (pixels[i:BOTTOM_LEFT + i:width] for i in xrange(width))
+    columns = tools.getColumns(image)
 
     segments = []
     inSegment = False
 
     for column in columns:
-        if _isWhite(column):
+        if tools.isWhite(column):
             inSegment = False
         else:
             if inSegment:
@@ -37,7 +35,3 @@ def _recombineColumns(columns):
     pixels = list(itertools.chain.from_iterable(rows))
     recombined.putdata(pixels)
     return recombined
-
-
-def _isWhite(pixels):
-    return set(pixels) == set([(255, 255, 255)])
