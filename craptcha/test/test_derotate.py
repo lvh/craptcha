@@ -7,7 +7,6 @@ from craptcha import derotate, samples
 
 class DerotateTest(unittest.TestCase):
     def _derotationTest(self, imageName):
-        import pdb; pdb.set_trace(); from craptcha import tools
         image = samples.getSample("algorithmTests", imageName)[0]
         inverted = ImageOps.invert(image.convert("L"))
         before = derotate._getAngle(inverted)
@@ -26,3 +25,11 @@ class DerotateTest(unittest.TestCase):
 
     def test_backslash(self):
         self._derotationTest("backslash.gif")
+
+
+    def test_vertical(self):
+        image = "vertical.gif"
+        self._derotationTest(image)
+
+        image = ImageOps.invert(samples.getSample("algorithmTests", image)[0])
+        invertedDerotated = ImageOps.invert(derotated)
