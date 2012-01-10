@@ -23,7 +23,11 @@ def derotate(image):
     """
     Forces an image into a consistent rotation.
     """
-    return image.rotate(-_getAngle(image), Image.BICUBIC, expand=True)
+    angle = _getAngle(image)
+    if angle:
+        return image.rotate(-angle, Image.BICUBIC, expand=True)
+    else:
+        return image
 
 
 def _getAngle(image):

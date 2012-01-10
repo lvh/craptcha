@@ -15,8 +15,8 @@ class DerotateTest(unittest.TestCase):
         invertedDerotated = ImageOps.invert(derotated)
         after = derotate._getAngle(invertedDerotated)
 
-        self.assertLess(abs(after), abs(before))
-        self.assertLess(abs(after), 10.0)
+        self.assertLessEqual(abs(after), abs(before))
+        self.assertLessEqual(abs(after), 10.0)
 
 
     def test_slash(self):
@@ -28,8 +28,4 @@ class DerotateTest(unittest.TestCase):
 
 
     def test_vertical(self):
-        image = "vertical.gif"
-        self._derotationTest(image)
-
-        image = ImageOps.invert(samples.getSample("algorithmTests", image)[0])
-        invertedDerotated = ImageOps.invert(derotated)
+        self._derotationTest("vertical.gif")
