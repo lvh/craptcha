@@ -3,7 +3,7 @@ A best-effort approach at preprocessing a captcha image.
 """
 from ImageOps import autocontrast
 
-from craptcha import destripe, derotate, segment, tools
+from craptcha import destripe, derotate, segment
 from craptcha.tools import autocrop, deborder, scale, simplify
 
 def composed(*functions):
