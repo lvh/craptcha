@@ -20,6 +20,5 @@ class SegmentTest(unittest.TestCase):
         debordered = tools.deborder(image)
         simplified = tools.simplify(debordered)
         destriped = destripe.destripe(simplified)
-        bilevel = tools.bilevel(destriped)
-        segments = segment.segment(bilevel)
+        segments = segment.segment(destriped)
         self.assertEqual(len(segments), 3)

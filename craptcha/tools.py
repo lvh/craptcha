@@ -24,10 +24,6 @@ def filterColors(image, colors, newColor=(255, 255, 255)):
     return new
 
 
-def bilevel(image):
-    return image.point(lambda v: 0 if v < 255 else 255)
-
-
 def simplify(image, colors=4):
     result = image.convert("P", palette=Image.ADAPTIVE, colors=colors)
     return result.convert("RGB")
