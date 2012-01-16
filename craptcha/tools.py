@@ -51,6 +51,10 @@ def autocrop(image, backgroundColor=255):
     return image.crop(boundingBox)
 
 
+def scale(image, size=(25, 25)):
+    return image.resize(size, Image.ANTIALIAS)
+
+
 def showPixel(image, pixel, color=(255, 0, 0)):
     if image.mode != "RGB":
         image = image.convert("RGB")
