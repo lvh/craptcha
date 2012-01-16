@@ -6,6 +6,7 @@ from ImageOps import autocontrast
 from craptcha import destripe, derotate, segment
 from craptcha.tools import autocrop, deborder, scale, simplify
 
+
 def composed(*functions):
     def g(x):
         for f in functions:
