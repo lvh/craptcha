@@ -32,7 +32,7 @@ class Classifier(object):
         self._svc.fit(flattened, indices)
 
 
-    def predict(self, *images):
-        flattened = _flatten(images)
+    def predict(self, *glyphs):
+        flattened = _flatten(glyphs)
         predictions = self._svc.predict(flattened)
         return [_itoa[p] for p in predictions]
