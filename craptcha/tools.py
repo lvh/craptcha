@@ -3,6 +3,7 @@ Generic image manipulation tools.
 """
 import functools
 import Image
+import ImageChops
 import ImageOps
 import itertools
 
@@ -44,8 +45,8 @@ def isWhite(pixels):
     return set(pixels) == set([(255, 255, 255)])
 
 
-def autocrop(image, backgroundColor):
-    background = Image.new(image.mode, im.size, bgcolor)
+def autocrop(image, backgroundColor=255):
+    background = Image.new(image.mode, image.size, backgroundColor)
     boundingBox = ImageChops.difference(image, background).getbbox()
     return image.crop(boundingBox)
 
