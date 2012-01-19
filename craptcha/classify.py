@@ -10,7 +10,7 @@ def _flatten(images):
     flattened = []
     for image in images:
         features = numpy.array(image.getdata(), numpy.float)
-        flattened.append(preprocessing.normalize(features))
+        flattened.append(features)
     return preprocessing.scale(flattened)
 
 

@@ -16,7 +16,7 @@ def composed(*functions):
     return g
 
 
-fixImage = composed(deborder, simplify, destripe.destripe)
+fixImage = composed(deborder, destripe.destripe)
 fixGlyph = composed(autocrop, autocontrast, derotate.derotate, scale)
 
 

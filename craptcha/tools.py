@@ -12,7 +12,7 @@ deborder = functools.partial(ImageOps.crop, border=1)
 
 
 def getColors(image):
-    return set(color for (count, color) in image.getcolors())
+    return set(color for (count, color) in image.getcolors(1024))
 
 
 def filterColors(image, colors, newColor=(255, 255, 255)):

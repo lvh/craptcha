@@ -1,7 +1,9 @@
 """
 Tools for removing the vertical and horizontal bars from the captcha.
 """
-from craptcha import tools
+import ImageEnhance
+
+from craptcha import segment, tools
 
 
 def _borderColors(image):
@@ -21,13 +23,36 @@ def _borderColors(image):
     return seen
 
 
-def destripe(image):
-    destriped = tools.filterColors(image, _borderColors(image))
-
-    cropped = destriped
+def _simpleDestripe(image):
+    destriped = cropped = tools.simplify(image)
     while len(tools.getColors(destriped)) > 2:
-        cropped = tools.deborder(cropped)
         newBorderColors = _borderColors(cropped)
         destriped = tools.filterColors(destriped, newBorderColors)
+        cropped = tools.deborder(cropped)
 
     return destriped
+
+
+def _segmentCondition(image, segmentor=segment.segment):
+    return len(segmentor(image)) == 3
+
+
+def destripe(image, condition=_segmentCondition):
+    #import pdb; pdb.set_trace()
+
+    def enhance(image, factor):
+        image = ImageEnhance.Color(image).enhance(factor/5)
+        image = ImageEnhance.Contrast(image).enhance(factor)
+        return image
+
+    enhanced = image
+    factor = 1.0
+    while True:
+        if factor != 1.0:
+            enhanced = enhance(image, factor)
+        destriped = _simpleDestripe(enhanced)
+
+        if condition(destriped) or factor > 40:
+            return destriped
+
+        factor += 1.0

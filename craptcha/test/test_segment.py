@@ -18,7 +18,6 @@ class SegmentTest(unittest.TestCase):
 
     def _captchaTest(self, image, solution):
         debordered = tools.deborder(image)
-        simplified = tools.simplify(debordered)
-        destriped = destripe.destripe(simplified)
+        destriped = destripe.destripe(debordered)
         segments = segment.segment(destriped)
         self.assertEqual(len(segments), 3)
