@@ -24,7 +24,8 @@ def segment(image):
                 segment = [column]
                 segments.append(segment)
 
-    return [_recombineColumns(cols) for cols in segments]
+    images = [_recombineColumns(cols) for cols in segments]
+    return filter(lambda img: min(img.size) > 5, images)
 
 
 def _recombineColumns(columns):
@@ -35,3 +36,4 @@ def _recombineColumns(columns):
     pixels = list(itertools.chain.from_iterable(rows))
     recombined.putdata(pixels)
     return recombined
+

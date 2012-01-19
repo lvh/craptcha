@@ -6,14 +6,8 @@ from craptcha.test import tools as cttools
 
 @cttools.generateCaptchaTests
 class SegmentTest(unittest.TestCase):
-    def test_simple(self):
-        image, solution = samples.getSample("algorithmTests", "segmentable.gif")
-        segments = segment.segment(image)
-        self.assertEqual(len(segments), 2)
-
-
     worksOn = "easy",
-    failsOn = "conjoined", "lowContrast", "difficult"
+    failsOn = "borderless", "conjoined", "lowContrast", "difficult"
 
 
     def _captchaTest(self, image, solution):

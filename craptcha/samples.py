@@ -18,7 +18,7 @@ def getSample(group, filename):
 
 samples = {}
 
-for group in ("easy", "difficult", "conjoined", "lowContrast"):
+for group in ("easy", "difficult", "conjoined", "lowContrast", "borderless"):
     samples[group] = groupSamples = []
     for fn in os.listdir(os.path.join(_samplesPath, group)):
         if os.path.splitext(fn)[1] in (".jpg", ".gif"):
